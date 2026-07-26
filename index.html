@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Feliz Aniversário, Gabriela 🍓</title>
+<meta name="description" content="Uma carta especial de aniversário para Gabriela.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #eaf8ee;
+    --bg-soft: #dff2e6;
+    --surface: #f6fcf5;
+    --green-deep: #1f6f4a;
+    --green-darker: #123626;
+    --green-mid: #2e8f61;
+    --gold: #cda355;
+    --gold-light: #e6cf9c;
+    --strawberry: #e0384f;
+    --strawberry-dark: #a81f34;
+    --leaf: #3a9463;
+    --text: #14301f;
+    --text-soft: #3f5c4a;
+    --shadow: 0 20px 60px rgba(18, 54, 38, 0.18);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  body.locked{ overflow: hidden; height: 100vh; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  a{ color: inherit; }
+
+  /* ---------- STRAWBERRY RAIN ---------- */
+  #berryLayer{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 500;
+    overflow: hidden;
+  }
+  .berry{
+    position: absolute;
+    top: -10vh;
+    opacity: 0;
+    filter: drop-shadow(0 6px 8px rgba(20,48,31,0.25));
+    animation-name: fallDown;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+  @keyframes fallDown{
+    0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    8%{ opacity: 1; }
+    92%{ opacity: 1; }
+    100%{ transform: translateY(115vh) translateX(var(--sway, 20px)) rotate(340deg); opacity: 0; }
+  }
+
+  /* ---------- VAULT OVERLAY ---------- */
+  #vaultOverlay{
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 30%, #1e5d3f 0%, var(--green-darker) 75%);
+    transition: opacity 0.6s ease;
+  }
+  #vaultOverlay.hidden{
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .door{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 26px),
+      linear-gradient(135deg, #2c7a52 0%, #164229 60%, #0c2a19 100%);
+    box-shadow: inset 0 0 90px rgba(0,0,0,0.5);
+    transition: transform 1.1s cubic-bezier(.7,0,.2,1);
+    z-index: 1;
+  }
+  .door::before{
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 2px solid rgba(205,163,85,0.35);
+    border-radius: 4px;
+  }
+  .door-left{ left: 0; }
+  .door-right{ right: 0; }
+  .door-left.open-left{ transform: translateX(-105%); }
+  .door-right.open-right{ transform: translateX(105%); }
+
+  .rivets{
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--gold-light) 0 3px, transparent 3px);
+    background-size: 60px 60px;
+    background-position: 20px 20px;
+    opacity: 0.15;
+  }
+
+  .vault-panel{
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 40px 34px 34px;
+    width: min(360px, 88vw);
+    text-align: center;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .vault-panel.fade-out{
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  .vault-panel.shake{ animation: shake 0.45s; }
+  @keyframes shake{
+    10%,90%{ transform: translateX(-6px); }
+    20%,80%{ transform: translateX(8px); }
+    30%,50%,70%{ transform: translateX(-10px); }
+    40%,60%{ transform: translateX(10px); }
+  }
+
+  .vault-eyebrow{
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--gold-light);
+    opacity: 0.85;
+  }
+
+  .wheel-wrap{
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+  .wheel{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, #1a4a30 0 30px, transparent 31px),
+      conic-gradient(from 0deg, var(--gold) 0 8%, #8a6a30 8% 16%, var(--gold) 16% 24%, #8a6a30 24% 32%, var(--gold) 32% 40%, #8a6a30 40% 48%, var(--gold) 48% 56%, #8a6a30 56% 64%, var(--gold) 64% 72%, #8a6a30 72% 80%, var(--gold) 80% 88%, #8a6a30 88% 100%);
+    box-shadow: 0 0 0 6px #0c2a19, 0 0 0 8px rgba(205,163,85,0.4), 0 15px 30px rgba(0,0,0,0.5);
+    animation: idleSpin 22s linear infinite;
+  }
+  .wheel.spin-fast{ animation: fastSpin 0.7s cubic-bezier(.5,0,.5,1) forwards; }
+  @keyframes idleSpin{ to{ transform: rotate(360deg); } }
+  @keyframes fastSpin{ to{ transform: rotate(1080deg) scale(0.9); opacity: 0.4; } }
+  .wheel-center{
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 34px; height: 34px;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #3a9463, #123626);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+  }
+
+  .dots{
+    display: flex;
+    gap: 14px;
+  }
+  .dot{
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-light);
+    background: transparent;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .dot.filled{
+    background: var(--gold-light);
+    transform: scale(1.1);
+  }
+
+  .hint-text{
+    font-size: 12.5px;
+    color: #d6ead9;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    line-height: 1.5;
+  }
+  .hint-text.show{ opacity: 1; max-height: 60px; }
+
+  .hint-btn{
+    background: none;
+    border: none;
+    color: var(--gold-light);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .keypad{
+    display: grid;
+    grid-template-columns: repeat(3, 54px);
+    gap: 10px;
+  }
+  .key{
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid rgba(230,207,156,0.35);
+    background: rgba(255,255,255,0.05);
+    color: #f2ead5;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .key:hover{ background: rgba(205,163,85,0.25); }
+  .key:active{ transform: scale(0.92); }
+  .key.wide{ grid-column: span 1; font-size: 14px; }
+
+  .vault-title{
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #fbfdf9;
+    margin: 0;
+  }
+  .vault-sub{
+    margin: -12px 0 0;
+    font-size: 12.5px;
+    color: #b9d4c1;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px clamp(20px, 6vw, 64px);
+    background: linear-gradient(180deg, rgba(15,45,29,0.65), rgba(15,45,29,0));
+    transition: background 0.4s ease;
+  }
+  .brand{
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 21px;
+    color: #fdfdf7;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .brand span{ color: var(--gold-light); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    background-image:
+      linear-gradient(180deg, rgba(10,35,22,0.25) 0%, rgba(9,26,17,0.55) 55%, var(--bg) 100%),
+      url('https://github.com/passaportglobal/Gaby/blob/main/IMG_20260712_200432.jpg?raw=true');
+    background-size: cover;
+    background-position: center 25%;
+  }
+  .hero-content{
+    position: relative;
+    z-index: 2;
+    padding: 0 clamp(20px, 6vw, 64px) 90px;
+    max-width: 720px;
+    color: #fdfdf7;
+  }
+  .eyebrow{
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .hero-title{
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(40px, 8vw, 88px);
+    line-height: 1.02;
+    margin: 0 0 18px;
+    text-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  }
+  .hero-desc{
+    font-size: clamp(14px, 1.6vw, 17px);
+    color: #e6f1e7;
+    max-width: 520px;
+    line-height: 1.6;
+    margin: 0 0 28px;
+  }
+  .cta-row{ display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn{
+    border: none;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{
+    background: var(--surface);
+    color: var(--green-darker);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  }
+  .btn-ghost{
+    background: rgba(255,255,255,0.14);
+    color: #fdfdf7;
+    border: 1px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(6px);
+  }
+
+  .scroll-cue{
+    position: absolute;
+    bottom: 26px; left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.75);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    z-index: 2;
+    animation: bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{ transform: translate(-50%,0);} 50%{ transform: translate(-50%,8px);} }
+
+  /* ---------- LETTER SECTION ---------- */
+  section{ position: relative; z-index: 2; }
+
+  .letter-section{
+    padding: 110px clamp(20px, 8vw, 120px) 100px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-label{
+    text-align: center;
+    font-size: 12.5px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .section-heading{
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 4.5vw, 46px);
+    color: var(--green-darker);
+    margin: 0 0 50px;
+  }
+
+  .polaroid{
+    width: min(300px, 70vw);
+    margin: 0 auto 50px;
+    background: var(--surface);
+    padding: 14px 14px 46px;
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    transform: rotate(-3deg);
+    position: relative;
+  }
+  .polaroid img{
+    width: 100%;
+    display: block;
+    border-radius: 2px;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+  }
+  .polaroid figcaption{
+    position: absolute;
+    bottom: 12px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--text-soft);
+    font-size: 14px;
+  }
+
+  .letter-card{
+    background: var(--surface);
+    border-radius: 20px;
+    padding: clamp(30px, 6vw, 64px);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(31,111,74,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .letter-card::before{
+    content: "🍓";
+    position: absolute;
+    top: -30px; right: -20px;
+    font-size: 160px;
+    opacity: 0.06;
+    transform: rotate(15deg);
+  }
+  .letter-card p{
+    font-size: clamp(15.5px, 1.8vw, 18px);
+    line-height: 1.85;
+    color: var(--text);
+    margin: 0 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .letter-card p:first-of-type::first-letter{
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    font-weight: 700;
+    color: var(--green-deep);
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+  }
+  .signature{
+    margin-top: 40px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--green-deep);
+    position: relative;
+    z-index: 1;
+  }
+  .signature small{
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    color: var(--text-soft);
+    margin-top: 6px;
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery-section{
+    padding: 40px clamp(20px, 8vw, 100px) 130px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .gallery-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .gallery-item{
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    box-shadow: var(--shadow);
+    isolation: isolate;
+  }
+  .gallery-item img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover img{ transform: scale(1.08); }
+  .gallery-item::after{
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(10,30,20,0.55) 100%);
+  }
+  .gallery-num{
+    position: absolute;
+    bottom: 14px; left: 16px;
+    z-index: 2;
+    color: #fdfdf7;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 720px){
+    .gallery-grid{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align: center;
+    padding: 40px 20px 130px;
+    color: var(--text-soft);
+    font-size: 13px;
+  }
+  footer .heart{ color: var(--strawberry); }
+
+  /* ---------- PLAYER ---------- */
+  #player{
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    background: linear-gradient(180deg, rgba(18,54,38,0.0), rgba(11,33,22,0.95) 30%);
+    backdrop-filter: blur(10px);
+    transform: translateY(120%);
+    transition: transform 0.6s cubic-bezier(.2,.9,.3,1);
+  }
+  #player.show{ transform: translateY(0); }
+
+  .cover{
+    width: 46px; height: 46px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--strawberry), var(--strawberry-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .track-info{
+    min-width: 120px;
+    color: #fdfdf7;
+  }
+  .track-info .t-title{ font-size: 13.5px; font-weight: 600; }
+  .track-info .t-artist{ font-size: 11.5px; color: #b9d4c1; }
+
+  #playPauseBtn{
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--surface);
+    color: var(--green-darker);
+    font-size: 15px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .seek-wrap{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .time{
+    font-size: 11px;
+    color: #cfe6d4;
+    width: 36px;
+    flex-shrink: 0;
+  }
+  input[type="range"]{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.25);
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    cursor: pointer;
+    box-shadow: 0 0 0 4px rgba(205,163,85,0.2);
+  }
+  input[type="range"]::-moz-range-thumb{
+    width: 13px; height: 13px;
+    border: none;
+    border-radius: 50%;
+    background: var(--gold-light);
+    cursor: pointer;
+  }
+
+  @media (max-width: 640px){
+    .track-info{ display: none; }
+    #player{ gap: 10px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+  <!-- CHUVA DE MORANGOS -->
+  <div id="berryLayer"></div>
+
+  <!-- COFRE -->
+  <div id="vaultOverlay">
+    <div class="door door-left"><div class="rivets"></div></div>
+    <div class="door door-right"><div class="rivets"></div></div>
+
+    <div class="vault-panel" id="vaultPanel">
+      <span class="vault-eyebrow">Acesso restrito</span>
+      <h2 class="vault-title">Feliz Aniversário 🎂</h2>
+      <p class="vault-sub">Digite o código para abrir o cofre</p>
+
+      <div class="wheel-wrap">
+        <div class="wheel" id="wheel"><div class="wheel-center"></div></div>
+      </div>
+
+      <div class="dots" id="dots">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+
+      <button class="hint-btn" id="hintBtn" type="button">💡 Ver dica</button>
+      <p class="hint-text" id="hintText">Dia do seu aniversário + Dia do meu aniversário</p>
+
+      <div class="keypad" id="keypad">
+        <button class="key" data-k="1">1</button>
+        <button class="key" data-k="2">2</button>
+        <button class="key" data-k="3">3</button>
+        <button class="key" data-k="4">4</button>
+        <button class="key" data-k="5">5</button>
+        <button class="key" data-k="6">6</button>
+        <button class="key" data-k="7">7</button>
+        <button class="key" data-k="8">8</button>
+        <button class="key" data-k="9">9</button>
+        <button class="key wide" data-k="clear">limpar</button>
+        <button class="key" data-k="0">0</button>
+        <button class="key wide" data-k="back">⌫</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <header class="site-nav">
+    <div class="brand">Para <span>Gabriela</span> 🍓</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <div class="eyebrow">Uma carta especial</div>
+      <h1 class="hero-title">Feliz Aniversário,<br>Gabriela</h1>
+      <p class="hero-desc">Um cantinho só pra você, com uma carta, algumas fotos nossas e uma música pra acompanhar. Feito com todo o carinho, especialmente pra hoje.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary" onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})">▶ Ler a carta</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('fotos').scrollIntoView({behavior:'smooth'})">Ver fotos</button>
+      </div>
+    </div>
+    <div class="scroll-cue">role para baixo</div>
+  </section>
+
+  <!-- CARTA -->
+  <section class="letter-section" id="carta">
+    <div class="section-label">Com carinho</div>
+    <h2 class="section-heading">A carta</h2>
+
+    <figure class="polaroid">
+      <img src="https://github.com/passaportglobal/Gaby/blob/main/IMG_20260712_200432.jpg?raw=true" alt="Foto de Gabriela">
+      <figcaption>Gabriela 🍓</figcaption>
+    </figure>
+
+    <div class="letter-card">
+      <p>Ahh!!!?? Clicou na porra do link!?!🤤🤤🥵 OBRIGADO!!</p>
+      <p>Parabéns Gabriela D', Anúncio da Shopee 🥹🥹🥹🥹 eu te amo muito muito muito muito ❤️❤️❤️🥰 eu sei que a gente não se vê todos os dias como era os anos de 2023 e 2024, mas eu sinto até hoje a nossa conexão sendo de outro mundo! Você é uma das, se não for a pessoa mais importante da minha viidaAaaaa, você sabe de coisas que Ninguém mais sabe, e foi a primeira pessoa a saber de muitas coisas sobre mim ❤️🥹🥹</p>
+      <p>Espero que esse dia seja muito especial pra você, que você seja feliz sempre e sempre, que Deus e o universo e todas as entidades te dê muita sabedoria, saúde, bençãos e conquistas! Que você continue sempre sendo essa menina maluca, doida, feliz, alegre, chorona e guerreira de sempre ❤️‍🩹❤️‍🩹❤️‍🩹</p>
+      <p>Você sabe a força que tem para conquistar qualquer coisa! 🥹 Você sabe do poder que você tem nas suas mãos e nos seus pensamentos ❤️‍🩹 VOCÊ É FORTE E CONSEGUE TUDO! SUA GOSTOSAAAA 🥵🥵🥵🥵 CASA COMIGOOOOO</p>
+      <p>Enfim amor, seja feliz, a vida é sua e o mundo foi feito pra você ❤️ eu te amo muito muito, estou sempre aqui pro que você precisar... Novamente, feliz aniversário 🎂❤️</p>
+      <div class="signature">
+        Com amor,
+        <small>Carluz 🐺 (dizem que sou o lobo mais gostoso do Brasil)</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="gallery-section" id="fotos">
+    <div class="section-label">Momentos</div>
+    <h2 class="section-heading">Nossas fotos</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://raw.githubusercontent.com/passaportglobal/Gaby/refs/heads/main/IMG_20260712_200316.jpg" alt="Foto 1">
+        <span class="gallery-num">01</span>
+      </div>
+      <div class="gallery-item">
+        <img src="https://raw.githubusercontent.com/passaportglobal/Gaby/refs/heads/main/IMG_20260712_200314.jpg" alt="Foto 2">
+        <span class="gallery-num">02</span>
+      </div>
+      <div class="gallery-item">
+        <img src="https://raw.githubusercontent.com/passaportglobal/Gaby/refs/heads/main/IMG_20260712_200129.jpg" alt="Foto 3">
+        <span class="gallery-num">03</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Feito com <span class="heart">🍓</span> pra Gabriela — hoje o dia é seu.
+  </footer>
+
+  <!-- PLAYER -->
+  <div id="player">
+    <div class="cover">🍓</div>
+    <div class="track-info">
+      <div class="t-title">Birds of a Feather</div>
+      <div class="t-artist">Billie Eilish</div>
+    </div>
+    <button id="playPauseBtn">▶</button>
+    <div class="seek-wrap">
+      <span class="time" id="curTime">0:00</span>
+      <input type="range" id="seek" value="0" min="0" max="100" step="0.1">
+      <span class="time" id="durTime">0:00</span>
+    </div>
+  </div>
+
+  <audio id="audio" preload="auto" loop>
+    <source src="https://github.com/passaportglobal/Gaby/blob/ee290948ef78edd460e77fa22a07605ec41cd81d/Billie%20Eilish%20-%20BIRDS%20OF%20A%20FEATHER%20(SPOTISAVER).mp3?raw=true" type="audio/mpeg">
+  </audio>
+
+<script>
+  // ---------- CHUVA DE MORANGOS ----------
+  (function(){
+    const layer = document.getElementById('berryLayer');
+    const total = 22;
+    for(let i=0;i<total;i++){
+      const b = document.createElement('span');
+      b.className = 'berry';
+      b.textContent = '🍓';
+      const size = 14 + Math.random()*20;
+      const duration = 9 + Math.random()*10;
+      const delay = Math.random()*-18;
+      const left = Math.random()*100;
+      const sway = (Math.random()*80 - 40) + 'px';
+      b.style.left = left + 'vw';
+      b.style.fontSize = size + 'px';
+      b.style.animationDuration = duration + 's';
+      b.style.animationDelay = delay + 's';
+      b.style.setProperty('--sway', sway);
+      layer.appendChild(b);
+    }
+  })();
+
+  // ---------- COFRE ----------
+  const CODE = '2608';
+  let entered = '';
+  const dots = document.querySelectorAll('#dots .dot');
+  const vaultPanel = document.getElementById('vaultPanel');
+  const wheel = document.getElementById('wheel');
+  const overlay = document.getElementById('vaultOverlay');
+  const doorLeft = document.querySelector('.door-left');
+  const doorRight = document.querySelector('.door-right');
+  const hintBtn = document.getElementById('hintBtn');
+  const hintText = document.getElementById('hintText');
+  const audio = document.getElementById('audio');
+  const player = document.getElementById('player');
+
+  hintBtn.addEventListener('click', () => {
+    hintText.classList.toggle('show');
+  });
+
+  function updateDots(){
+    dots.forEach((d, i) => d.classList.toggle('filled', i < entered.length));
+  }
+
+  function wrongCode(){
+    vaultPanel.classList.add('shake');
+    setTimeout(() => {
+      vaultPanel.classList.remove('shake');
+      entered = '';
+      updateDots();
+    }, 480);
+  }
+
+  function unlockVault(){
+    audio.play().catch(() => {});
+    wheel.classList.add('spin-fast');
+    vaultPanel.classList.add('fade-out');
+
+    setTimeout(() => {
+      doorLeft.classList.add('open-left');
+      doorRight.classList.add('open-right');
+    }, 500);
+
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      document.body.classList.remove('locked');
+      player.classList.add('show');
+    }, 1600);
+
+    setTimeout(() => { overlay.style.display = 'none'; }, 2300);
+  }
+
+  document.getElementById('keypad').addEventListener('click', (e) => {
+    const btn = e.target.closest('.key');
+    if(!btn) return;
+    const k = btn.dataset.k;
+
+    if(k === 'clear'){ entered = ''; updateDots(); return; }
+    if(k === 'back'){ entered = entered.slice(0, -1); updateDots(); return; }
+
+    if(entered.length < 4){
+      entered += k;
+      updateDots();
+      if(entered.length === 4){
+        if(entered === CODE){
+          unlockVault();
+        } else {
+          wrongCode();
+        }
+      }
+    }
+  });
+
+  // fallback: teclado físico
+  document.addEventListener('keydown', (e) => {
+    if(document.body.classList.contains('locked')){
+      if(/^[0-9]$/.test(e.key) && entered.length < 4){
+        entered += e.key;
+        updateDots();
+        if(entered.length === 4){
+          entered === CODE ? unlockVault() : wrongCode();
+        }
+      } else if(e.key === 'Backspace'){
+        entered = entered.slice(0, -1);
+        updateDots();
+      }
+    }
+  });
+
+  // ---------- PLAYER ----------
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const seek = document.getElementById('seek');
+  const curTime = document.getElementById('curTime');
+  const durTime = document.getElementById('durTime');
+
+  function formatTime(s){
+    if(!isFinite(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60).toString().padStart(2, '0');
+    return `${m}:${sec}`;
+  }
+
+  playPauseBtn.addEventListener('click', () => {
+    if(audio.paused){
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  audio.addEventListener('play', () => playPauseBtn.textContent = '❚❚');
+  audio.addEventListener('pause', () => playPauseBtn.textContent = '▶');
+
+  audio.addEventListener('loadedmetadata', () => {
+    seek.max = audio.duration;
+    durTime.textContent = formatTime(audio.duration);
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    seek.value = audio.currentTime;
+    curTime.textContent = formatTime(audio.currentTime);
+  });
+
+  seek.addEventListener('input', () => {
+    audio.currentTime = seek.value;
+  });
+</script>
+</body>
+</html>
